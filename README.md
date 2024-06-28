@@ -26,5 +26,5 @@
  Visual Studio 2022 Build Toolsをインストール(C++を選択)  
 `winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override "--wait --add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended"`
 
-再度インストール ※既にcythonがインストールされていることを確認  
+再度インストール ※cythonが入っていることを確認
 `pip install insightface`
