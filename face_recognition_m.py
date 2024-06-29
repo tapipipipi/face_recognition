@@ -81,7 +81,7 @@ players = os.listdir(f'face_data')
 #         break
 
 #認証させる画像の登録
-img_path = 'Authe_image/arasm.jpg'
+img_path = 'authe_image/arasm.jpg'
 img = cv2.imread(img_path)
 
 #登録写真の顔検出を行うための準備
