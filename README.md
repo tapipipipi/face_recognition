@@ -16,15 +16,15 @@
 
 ***
 
-##### ※insightfaceがインストール出来なかったとき
+### ※insightfaceがインストール出来なかったとき
 
 コマンドプロンプト等で以下のコマンドを実行（Windows）
 
- Microsoft Visual C++をインストール
+ Microsoft Visual C++をインストール  
 `winget install -e --id Microsoft.VCRedist.2015+.x64`
 
- Visual Studio 2022 Build Toolsをインストール(C++を選択)
+ Visual Studio 2022 Build Toolsをインストール(C++を選択)  
 `winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override "--wait --add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended"`
 
-再度インストール ※既にcythonがインストールされていることを確認
+再度インストール ※既にcythonが入っていることを確認  
 `pip install insightface`
