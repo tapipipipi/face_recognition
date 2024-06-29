@@ -14,18 +14,18 @@ from datetime import datetime
 
 #平均を算出するための関数
 def get_averages(names, scores):
-    d = defaultdict(list)
-    for n, s in zip(names, scores):
-        d[n].append(s)
+    d = defaultdict(list) #空のリストを作成
+    for n, s in zip(names, scores): #名前とスコアを同時に取得
+        d[n].append(s) #リストに名前とスコアを追加
 
     averages = {}
-    for n, s in d.items():
-        averages[n] = np.mean(s)
+    for n, s in d.items(): #namesとscoresに対してループ処理
+        averages[n] = np.mean(s) #平均を算出
     return averages
 
 #認証を行うための関数
 def judge_sim(known_embeddings, known_names, unknown_embeddings, threshold):
-    pred_names = []
+    pred_names = [] #リストを生成
     for emb in unknown_embeddings:
         scores = np.dot(emb, known_embeddings.T)
         scores = np.clip(scores, 0., None)
