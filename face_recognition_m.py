@@ -9,7 +9,6 @@ from glob import glob
 from tqdm import tqdm
 from collections import defaultdict
 from PIL import Image
-from IPython.display import display, Image
 from datetime import datetime
 
 #平均を算出するための関数
