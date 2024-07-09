@@ -11,7 +11,7 @@
   * face_recogniyion_s.py : 顔認証コード（個人判別）
   * face_recogniyion_m.py : 顔認証コード（複数人判定）
   * ~_bk : バックアップファイル。初めて正常に動作した時のコード
-  * ~_test: cv2が正常に動いているか確認するコード
+  * ~_test: テスト用コード
   * environment.txt : 正常に動作した時点での自分の環境。今回使わないライブラリ多数有
   * result_reset.py : result,dataの画像を全て削除
 
