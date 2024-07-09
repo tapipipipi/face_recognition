@@ -12,7 +12,6 @@ from PIL import Image
 from datetime import datetime
 import urllib.request
 import requests
-import zipfile
 import requests
 from bs4 import BeautifulSoup
 
@@ -144,32 +143,22 @@ known_embeddings = np.concatenate(known_embeddings, axis=0)#情報を１つの�
 faces = app.get(np.array(img))
 
 for i in range(len(faces)):
-    unknown_embeddings.append(faces[i].embedding)
+    unknown_embeddings.append(faces[i].embedding) #認証画像をリストに追加
 
+    #認証画像、登録画像、名前を用いて顔認証を実施
     pred_names = judge_sim(known_embeddings, known_names, unknown_embeddings, 90)
-detect = draw_on(img, faces, pred_names)
+detect = draw_on(img, faces, pred_names) #認証できた顔と名前を元の画像に描画
 
-attend_data = []
-send_data = []
+attend_data = [] #認証成功した画像名を格納するためのリスト
 
+#.pingを切り離し画像名のみ格納
 for i in pred_names:
     if(i != None):
         print(i)
         sla_split = str(i).split(".")
         attend_data.append(sla_split[0])
+print("\nlistdata:" + attend_data)#結果を出力
 
-# i = 0
-# while i < len(attend_data):
-#     dot_sprit = str(attend_data[i]).split(".")
-#     send_data.append(dot_sprit[0])
-#     i+=1
-
-print(attend_data)
-
-
+#現在時刻を取得し、顔認証結果をresultディレクトリに保存
 datetime_str = datetime.now().strftime("%Y %m-%d %H-%M %S")
-
 cv2.imwrite( "result/" + str(datetime_str) + '.jpg', detect)
-
-# _, buf = cv2.imencode(".jpg", detect)
-# display(Image(data=buf.tobytes()))
