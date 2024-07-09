@@ -10,6 +10,11 @@ from tqdm import tqdm
 from collections import defaultdict
 from PIL import Image
 from datetime import datetime
+import urllib.request
+import requests
+import zipfile
+import requests
+from bs4 import BeautifulSoup
 
 #平均を算出するための関数
 def get_averages(names, scores):
@@ -60,13 +65,36 @@ def draw_on(img, faces, name):
         cv2.putText(dimg, name[i], (box[0]-1, box[1]-4),cv2.FONT_HERSHEY_COMPLEX,0.5,(0,255,0),1)
     return dimg
 
+#取得した画像を自分のディレクトリに保存するための関数
+def download_file(url, dst_path):
+    with urllib.request.urlopen(url) as web_file:
+        with open(dst_path, 'wb') as local_file:
+            local_file.write(web_file.read())
+
 #名前と特徴量を格納するためのリストの初期化
 known_names = []
 known_embeddings = []
 unknown_embeddings = []
 
+# スクレイピング対象の URL にリクエストを送り HTML を取得する
+res = requests.get('https://yu-windows.tail62876.ts.net/B/.face_images/')
+
+# 取得したHTMLをパース
+soup = BeautifulSoup(res.text, 'html.parser')
+
+#ページに含まれるリンクを全て取得
+link = [url.get('href') for url in soup.find_all('a')]
+
+#.jpgのリンクのみを抽出し、dataディレクトリに保存
+for i in link:
+    if ".jpg" in i:
+        url = 'https://yu-windows.tail62876.ts.net/B/.face_images/' + i
+        dst_path = 'data/' + i
+        download_file(url, dst_path)
+
 #フォルダの名前（選手名）を取得
-players = os.listdir(f'face_data')
+dir_path = "data"
+players = os.listdir(dir_path)
 
 #カメラの設定
 # capture = cv2.VideoCapture(0)
@@ -92,23 +120,25 @@ app_pre.prepare(ctx_id=0, det_size=(640, 640))
 app = FaceAnalysis()
 app.prepare(ctx_id=0, det_size=(640, 640))
 
+#顔の特徴量を抽出し、リストに追加
 for player in tqdm(players):
     player_embeddings, player_names = [], []
     
+    # 画像の読み込み
     im = cv2.imread(f'face_data/{player}')
-    if im is None: continue
+    if im is None: continue #画像がない場合
 
-    faces = app_pre.get(np.array(im))
-    if len(faces) == 0 : continue
+    #顔を検出しリストに追加
+    faces = app_pre.get(np.array(im)) 
+    if len(faces) == 0 : continue #顔が検出されない場合
     player_embeddings.append(faces[0].embedding)
     player_names.append(player)
-
-    if len(known_embeddings) == 10: break
     
+    #対応した名前をリストに追加
     player_embeddings = np.stack(player_embeddings, axis=0)
     known_embeddings.append(player_embeddings)
     known_names += player_names
-known_embeddings = np.concatenate(known_embeddings, axis=0)
+known_embeddings = np.concatenate(known_embeddings, axis=0)#情報を１つの配列に格納
 
 #顔認証の実施
 faces = app.get(np.array(img))
@@ -117,8 +147,25 @@ for i in range(len(faces)):
     unknown_embeddings.append(faces[i].embedding)
 
     pred_names = judge_sim(known_embeddings, known_names, unknown_embeddings, 90)
-
 detect = draw_on(img, faces, pred_names)
+
+attend_data = []
+send_data = []
+
+for i in pred_names:
+    if(i != None):
+        print(i)
+        sla_split = str(i).split(".")
+        attend_data.append(sla_split[0])
+
+# i = 0
+# while i < len(attend_data):
+#     dot_sprit = str(attend_data[i]).split(".")
+#     send_data.append(dot_sprit[0])
+#     i+=1
+
+print(attend_data)
+
 
 datetime_str = datetime.now().strftime("%Y %m-%d %H-%M %S")
 

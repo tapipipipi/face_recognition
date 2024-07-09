@@ -2,7 +2,7 @@ import requests
 import json
 
 num = [
-    123, 456, 789
+    123, 456, 333
 ]
 
 #POSTで渡すデータをJSON形式に変換して送信
