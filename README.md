@@ -6,7 +6,7 @@ https://github.com/toma1128/Smart_Attendance
 
 * ディレクトリ
   * result : 複数人の顔認証結果の画像を保存
-  * ※以下のフォルダは.gitignoreで隠しているため、実行時に作成してください
+  ※以下のフォルダは個人の写真データのため.gitignoreで隠しています
   * authe_image :　複数人の顔認証をする際のサンプル画像　※テスト用
   * face_data : 登録画像と名前　※テスト用
   * data : サーバーから引っ張ってきた画像を保存
