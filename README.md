@@ -14,20 +14,3 @@
   * ~_test: テスト用コード
   * environment.txt : 正常に動作した時点での自分の環境。今回使わないライブラリ多数有
   * result_reset.py : result,dataの画像を全て削除
-
-***
-
-### ※insightfaceがインストール出来なかったとき
-
-コマンドプロンプト等で以下のコマンドを実行しインストール（Windows）
-
- Microsoft Visual C++  
-`winget install -e --id Microsoft.VCRedist.2015+.x64`
-
- Visual Studio 2022 Build Tools(C++を選択)  
-`winget install -e --id Microsoft.VisualStudio.2022.BuildTools --override "--wait --add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended"`
-
-再度実行 ※既にcythonが入っていることを確認  
-`pip install insightface`
-
-これで無理なら分かりませんｽｲﾏｾﾝ...
