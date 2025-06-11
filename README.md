@@ -1,11 +1,10 @@
 # 顔認証システム（単数・複数）
-https://github.com/toma1128/Smart_Attendance
-の顔認証部分となるリポジトリで、RasberryPiに組み込んだコードです。
+https://github.com/toma1128/Smart_Attendanceの顔認証部分となるリポジトリで、RasberryPiに組み込んだコードです。
 
 ## ディレクトリ・ファイル一覧
 
 * ディレクトリ
-  * result : 複数人の顔認証結果の画像を保存
+  * result : 複数人の顔認証結果の画像を保存  
   ※以下のフォルダは個人の写真データのため.gitignoreで隠しています
   * authe_image :　複数人の顔認証をする際のサンプル画像　※テスト用
   * face_data : 登録画像と名前　※テスト用
