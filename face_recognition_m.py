@@ -75,22 +75,6 @@ known_names = []
 known_embeddings = []
 unknown_embeddings = []
 
-# スクレイピング対象の URL にリクエストを送り HTML を取得する
-res = requests.get('https://yu-windows.tail62876.ts.net/B/.face_images/')
-
-# 取得したHTMLをパース
-soup = BeautifulSoup(res.text, 'html.parser')
-
-#ページに含まれるリンクを全て取得
-link = [url.get('href') for url in soup.find_all('a')]
-
-#.jpgのリンクのみを抽出し、dataディレクトリに保存
-for i in link:
-    if ".jpg" in i:
-        url = 'https://yu-windows.tail62876.ts.net/B/.face_images/' + i
-        dst_path = 'data/' + i
-        download_file(url, dst_path)
-
 #フォルダの名前（選手名）を取得
 dir_path = "data"
 players = os.listdir(dir_path)
